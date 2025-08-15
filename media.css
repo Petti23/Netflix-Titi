@@ -1,107 +1,151 @@
+/*
+  ESTILOS GERAIS PARA TODAS AS TELAS
+  Use esta seção para definir estilos que se aplicam a todos os dispositivos,
+  como cores de fundo, fontes e reset de margens.
+*/
+
+* {
+    box-sizing: border-box; /* Garante que padding e border não alterem a largura do elemento */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #141414; /* Cor de fundo escura, padrão Netflix */
+    color: #fff; /* Cor do texto padrão */
+    font-family: 'Netflix Sans', Arial, sans-serif; /* Usar uma fonte similar ou fallback */
+}
+
+/*
+  SEÇÃO DE PERFIS (TELAS MENORES)
+  Aqui, os estilos são focados na página de seleção de perfis,
+  com melhorias para centralização e espaçamento.
+*/
 .celular__cabeca {
     display: none;
+    flex-direction: column; /* Alinhar itens verticalmente */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.celular__logo {
+    width: 130px;
+    margin-bottom: 2em; /* Espaçamento mais limpo */
+}
+
+.escolha__texto {
+    font-size: 2.5rem; /* Usar 'rem' para um tamanho de fonte responsivo */
+    font-weight: 500; /* Deixar a fonte um pouco mais fina para um visual moderno */
+    margin: 3em 0 2em;
+    padding: 0 15px; /* Adicionar padding para evitar que o texto encoste nas bordas */
+}
+
+/* Animação para entrada do texto */
+@keyframes slidein {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.escolha__texto {
+    animation: slidein 0.5s ease-out forwards;
+}
+
+.escolha__lista {
+    margin: 3em 15px;
+    display: flex; /* Usar flexbox para a lista de perfis */
+    justify-content: center;
+    gap: 20px; /* Espaçamento entre as fotos de perfil */
+}
+
+.perfil__foto {
+    width: 100px;
+    border-radius: 4px; /* Pequenas bordas arredondadas para um visual mais suave */
+}
+
+.celular__edit {
+    width: 30px;
+    margin-top: 2em;
+}
+
+.celular__edit:hover {
+    cursor: pointer;
+    opacity: 0.8; /* Opacidade leve em vez de 60% para um efeito mais sutil */
+    transform: scale(0.95); /* Efeito de escala mais suave */
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out; /* Adicionar transição */
+}
+
+
+/*
+  PÁGINA PRINCIPAL (TELAS MENORES)
+  Melhorias para o layout da página principal, como a barra de navegação e os carrosséis.
+*/
+.container__logo, .container__texto__mobile {
+    display: none;
 }
 
 @media(max-width: 500px) {
-
-    .celular__cabeca {
+    /* Mostra elementos específicos para celular */
+    .celular__cabeca,
+    .nlogo,
+    .container__texto__mobile {
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
-    .celular__logo {
-        width: 130px;
-        margin: 2em 0 2em 5em;
-    }
-
-    .escolha__texto {
-        text-align: center;
-        font-size: 40px;
-        margin-top: 3em;
-    }
-
-    @keyframes slidein {
-        from {
-            margin-top: 50px;
-          }
-        
-          to {
-            margin-top: 120px;
-        }
-    }
-
-    .escolha__lista{
-        scale: 1;
-        margin: 3em 15px;
-    }
-
-    .perfil__foto {
-        width: 100px;
-    }
-
-    .celular__edit {
-        width: 30px;
-        margin-left: 5em;
-    }
-
-    .celular__edit:hover {
-        cursor: pointer;
-        opacity: 60%;
-        scale: 0.9;
-    }
-}
-
-/*PAGINA PRINCIPAL----------------------------------------------------------------*/
-
-.nlogo {
-    display: none;
-}
-
-.container__texto__mobile {
-    display: none;
-}
-
-@media(max-width: 500px) {
-    .container__logo {
+    /* Oculta elementos que são apenas para desktop */
+    .mobile__sumir,
+    .container__logo,
+    .mais__info,
+    #btnleft,
+    #btnright {
         display: none;
     }
 
     .nlogo {
-        display: flex;
         width: 20px;
         margin: 0 15px;
     }
 
     .cabecario {
         width: 100%;
+        padding: 10px 0; /* Adicionar padding superior/inferior para melhor espaçamento */
+        background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para o cabeçalho */
+        position: fixed; /* Fixar no topo da tela */
+        top: 0;
+        z-index: 1000; /* Garantir que fique acima de outros elementos */
     }
 
     .cabecario__item {
         margin: 0 8%;
     }
 
-    .mobile__sumir {
-        display: none;
-    }
-
     .cabecario__lista {
-        margin: 0 0;
+        margin: 0;
     }
 
     .container__titulo {
         width: 75%;
-        margin: 160px 0 0 10px;
+        margin-top: 160px; /* Espaçamento superior para o título principal */
+        margin-left: 10px;
     }
 
     .container__lista {
         display: flex;
-        overflow-x: scroll;
+        overflow-x: auto; /* Melhor usar 'auto' para o scroll */
         scroll-snap-type: x mandatory;
+        padding: 0 10px; /* Adicionar padding para um visual mais limpo */
     }
 
     .carrossel_item {
         scroll-snap-align: start;
+        flex-shrink: 0; /* Impede que os itens do carrossel encolham */
+        margin-right: 10px; /* Espaçamento entre os itens */
     }
 
     .container__video {
@@ -109,27 +153,24 @@
     }
 
     .cropped {
-        margin: 0 0;
+        margin: 0;
     }
 
     .container__background {
         background-image: url(img/Background-principalMobile.png);
+        background-size: cover; /* Garantir que a imagem cubra toda a área */
+        background-position: center; /* Centralizar a imagem */
     }
 
     .container__texto__mobile {
-        display: inline-block;
-        font-size: 18px;
+        font-size: 1.125rem; /* Usar 'rem' */
         margin: 20px 0 30px 15px;
-    }
-
-    .mais__info {
-        display: none;
     }
 
     .info {
         display: inline-flex;
         width: 70px;
-        margin: 0 0;
+        margin: 0;
     }
 
     .container__botao {
@@ -137,18 +178,10 @@
     }
 
     .play {
-        margin: 0 0;
+        margin: 0;
     }
 
     .filme5 {
         width: 80%;
-    }
-
-    #btnleft {
-        display: none;
-    }
-
-    #btnright {
-        display: none;
     }
 }
